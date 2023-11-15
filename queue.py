@@ -9,8 +9,9 @@ class Queue:
         self._end = 0
 
     def is_full(self):
-        if self._start == 0 and self._end == self._length - 1:
+        if self._start == 0 and self._end == self._length + 1:
             # The queue is full with no wrap-around
+            print("end", self._end, self._queue)
             return True
 
         if self._end == self._start - 1:
@@ -34,7 +35,7 @@ class Queue:
     def enqueue(self, item):
         if self.is_full():
             raise RuntimeError(f"Queue is full! (Max {self._length} items)")
-        
+
         current_slot = self._next_free_slot
         self._queue[current_slot] = item
         self._end += 1
@@ -42,10 +43,16 @@ class Queue:
         self._next_free_slot = self.calculate_next_free_slot(current_slot)
         return current_slot
 
+    def dequeue(self):
+        first_item = self._queue[self._start]
+        self._start += 1
+        return first_item
+
 
 queue = Queue(4)
 print(queue.enqueue("ABS"))
 print(queue.enqueue("AAA"))
 print(queue.enqueue("BBB"))
 print(queue.enqueue("ABS"))
+print(queue.dequeue())
 print(queue.enqueue("ABS"))
