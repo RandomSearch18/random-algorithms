@@ -1,49 +1,33 @@
 class Queue:
-    #EMPTY_SLOT = object()
     EMPTY_SLOT = None
 
-    def __init__(self, size: int):
-        self._size = size
-        self._queue = [Queue.EMPTY_SLOT] * size
-        self._nextFree = 0
-        self._start = 0
+    def __init__(self, length: int):
+        self._length = length
+        self._queue = [self.EMPTY_SLOT] * length
+        self._next_free_slot = 0
 
-    def push(self, item):
-        new_item_index = self._nextFree
+    def calculate_next_free_slot(self, start_from: int) -> int:
+        current_index = start_from + 1
+        while current_index != self._length:
+            if self._queue[current_index] == self.EMPTY_SLOT:
+                return current_index
+            current_index += 1
 
-        if self.isFull():
-            raise RuntimeError(f"Queue is full! ({self._size} items)")
+        # Couldn't find a free slot before the end of the array,
+        # so check for empty slots at the start
+        return self.calculate_next_free_slot(0)
 
-        self._queue[new_item_index] = item
-        self._nextFree += 1
+    def enqueue(self, item):
+        current_slot = self._next_free_slot
+        self._queue[current_slot] = item
 
-        return new_item_index
-
-    def pop(self):
-        if self.isEmpty():
-            raise RuntimeError("Queue is empty!")
-
-        firstItemIndex = self._start
-        removedItem = self._queue[firstItemIndex]
-
-        self._queue[firstItemIndex] = self.EMPTY_SLOT
-        self._start += 1
-
-        return removedItem
-
-    def isFull(self):
-        return self._nextFree == self._size
-
-    def isEmpty(self):
-        return self._start == self._nextFree
+        self._next_free_slot = self.calculate_next_free_slot(current_slot)
+        return current_slot
 
 
 queue = Queue(4)
-queue.push("A")
-queue.push("B")
-queue.push("C")
-queue.push("D")
-print(queue._queue)
-
-while not queue.isEmpty():
-    print(queue.pop())
+print(queue.enqueue("ABS"))
+print(queue.enqueue("AAA"))
+print(queue.enqueue("BBB"))
+print(queue.enqueue("ABS"))
+print(queue.enqueue("ABS"))
