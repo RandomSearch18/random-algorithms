@@ -11,7 +11,7 @@ class Node:
         self.right = right
 
     def __str__(self) -> str:
-        return f"{self.value}"
+        return f"[{self.left}, {self.value}, {self.right}]"
 
     def traverse(self):
         """Traverses through the tree, returning an array of values"""
@@ -38,11 +38,32 @@ class Node:
                 return
             self.right.insert_child_value(value)
 
+    def search_for(self, target_value):
+        if self.value == target_value:
+            return self
+        
+        if self.left and self.left.value >= target_value:
+            #print(f"Less than {self.value}, traversing {self.left}")
+            return self.left.search_for(target_value)
+
+        if self.right and self.right.value <= target_value:
+            #print(f"Greater than {self.value}, traversing {self.right}")
+            return self.right.search_for(target_value)
+
+        raise ValueError(f"Value {target_value} is not present!")
+
 tree_root = Node(5)
 values_to_insert = [3, 7, 2, 4, 6, 8]
 
 for value in values_to_insert:
     tree_root.insert_child_value(value)
 
-for value in tree_root.traverse():
-    print(value)
+# for value in tree_root.traverse():
+#     print(value)
+
+#print("\n")
+print("Looking for 8:", tree_root.search_for(8))
+print("Looking for 3:", tree_root.search_for(3))
+print("Looking for 7:", tree_root.search_for(7))
+print("Looking for 5:", tree_root.search_for(5))
+#print("Looking for 99999:", tree_root.search_for(99999))
