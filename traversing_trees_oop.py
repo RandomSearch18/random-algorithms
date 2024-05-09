@@ -26,6 +26,15 @@ class Node:
 
         return result_values
 
+    def find_minimum_value_node(self):
+        current_node = self
+        while current_node.left:
+            current_node = current_node.left
+        return current_node
+
+    def has_children(self) -> bool:
+        return bool(self.left or self.right)
+
     def insert_child_value(self, value):
         if value < self.value:
             if not self.left:
@@ -52,6 +61,18 @@ class Node:
 
         raise ValueError(f"Value {target_value} is not present!")
 
+    def delete_self(self):
+        self = None
+
+    def delete_node(self, target_value):
+        target_node = self.search_for(target_value)
+
+        if not target_node.has_children():
+            target_node.delete_self()
+        
+        #if not target_node.left.has_children()
+        
+
 tree_root = Node(5)
 values_to_insert = [3, 7, 2, 4, 6, 8]
 
@@ -66,4 +87,6 @@ print("Looking for 8:", tree_root.search_for(8))
 print("Looking for 3:", tree_root.search_for(3))
 print("Looking for 7:", tree_root.search_for(7))
 print("Looking for 5:", tree_root.search_for(5))
+tree_root.delete_node(8)
+print("Looking for 8:", tree_root.search_for(8))
 #print("Looking for 99999:", tree_root.search_for(99999))
