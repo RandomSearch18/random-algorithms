@@ -32,9 +32,11 @@ def split_array(array):
 # print(split_array([0,1,2,3,4]))
 
 def merge_sort(array):
-    if len(array) > 1:
-        a, b = split_array(array)
-        print(a, b)
-        return merge_lists(merge_sort(a), merge_sort(b))
+    if len(array) == 1:
+        return array
+    a, b = split_array(array)
+    print(a, b)
+    return merge_lists(merge_sort(a), merge_sort(b))
 
-print(merge_sort([8, 3, 0, -3, -30]))
+
+print("a", merge_sort([8, 3, 0, -30]))
