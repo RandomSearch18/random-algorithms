@@ -21,6 +21,7 @@ def merge_lists(list_a, list_b):
         result += extra_items
     return result
 
+
 def split_array(array):
     """Splits an array in half"""
     midpoint = len(array) // 2
@@ -28,14 +29,16 @@ def split_array(array):
     right_half = array[midpoint:]
     return (left_half, right_half)
 
+
 # print(split_array([0,1,2,3,4,5]))
 # print(split_array([0,1,2,3,4]))
+
 
 def merge_sort(array):
     if len(array) == 1:
         return array
     a, b = split_array(array)
-    print(a, b)
+    print(f"Splitting {array} into", a, b)
     return merge_lists(merge_sort(a), merge_sort(b))
 
 
