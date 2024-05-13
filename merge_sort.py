@@ -1,6 +1,5 @@
 def merge_lists(list_a, list_b):
     """Merges two sorted lists into one sorted list"""
-    print(f"Merging {list_a} + {list_b}")
     result = []
     position_a = 0
     position_b = 0
@@ -16,6 +15,7 @@ def merge_lists(list_a, list_b):
 
     result.extend(list_a[position_a:])
     result.extend(list_b[position_b:])
+    print(f"Merged {list_a} + {list_b} into", result)
     return result
 
 
@@ -29,12 +29,14 @@ def split_list(array):
 
 # print(split_array([0,1,2,3,4,5]))
 # print(split_array([0,1,2,3,4]))
-print(merge_lists([5, 6], [0, 1]))
+# print(merge_lists([5, 6], [0, 1]))
 
 
 def merge_sort(array):
     if len(array) == 1:
         return array
+    if len(array) == 0:
+        return []
     a, b = split_list(array)
     print(f"Splitting {array} into", a, b)
     return merge_lists(merge_sort(a), merge_sort(b))
