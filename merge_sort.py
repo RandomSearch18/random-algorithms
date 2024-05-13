@@ -14,14 +14,8 @@ def merge_lists(list_a, list_b):
             result.append(item_a)
             position_a += 1
 
-    # Handle one of the lists being longer than the other
-    extra_items_a = len(list_a) - len(list_b)
-    if extra_items_a > 0:
-        extra_items = list_a[-extra_items_a:]
-        result += extra_items
-    elif extra_items_a < 0:
-        extra_items = list_b[extra_items_a:]
-        result += extra_items
+    result.extend(list_a[position_a:])
+    result.extend(list_b[position_b:])
     return result
 
 
