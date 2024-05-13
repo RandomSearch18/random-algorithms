@@ -5,4 +5,4 @@ def countdown(number: int):
     countdown(number - 1)
 
 
-countdown(5)
+countdown(10000000)
