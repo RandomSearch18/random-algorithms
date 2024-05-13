@@ -1,5 +1,6 @@
 def merge_lists(list_a, list_b):
     """Merges two sorted lists into one sorted list"""
+    print(f"Merging {list_a} + {list_b}")
     result = []
     position_a = 0
     position_b = 0
@@ -12,6 +13,8 @@ def merge_lists(list_a, list_b):
         else:
             result.append(item_a)
             position_a += 1
+
+    # Handle one of the lists being longer than the other
     extra_items_a = len(list_a) - len(list_b)
     if extra_items_a > 0:
         extra_items = list_a[-extra_items_a:]
@@ -22,8 +25,8 @@ def merge_lists(list_a, list_b):
     return result
 
 
-def split_array(array):
-    """Splits an array in half"""
+def split_list(array):
+    """Splits a list in half"""
     midpoint = len(array) // 2
     left_half = array[:midpoint]
     right_half = array[midpoint:]
@@ -32,14 +35,15 @@ def split_array(array):
 
 # print(split_array([0,1,2,3,4,5]))
 # print(split_array([0,1,2,3,4]))
+print(merge_lists([5, 6], [0, 1]))
 
 
 def merge_sort(array):
     if len(array) == 1:
         return array
-    a, b = split_array(array)
+    a, b = split_list(array)
     print(f"Splitting {array} into", a, b)
     return merge_lists(merge_sort(a), merge_sort(b))
 
 
-print("a", merge_sort([8, 3, 0, -30]))
+print("Result:", merge_sort([8, 3, 0, -30]))
