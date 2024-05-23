@@ -14,9 +14,9 @@ def quick_sort(array: list):
         # and right >= 0
     ):
         print(f"Left: {left} -> {array[left]}")
-        while array[left] < array[pivot] and array[left] != array[pivot]:
+        while left <= right and array[left] <= array[pivot]:
             left += 1
-        while array[right] > array[pivot] and array[right] != array[pivot]:
+        while right >= left and array[right] >= array[pivot]:
             right -= 1
         print(f"Swapped <{left}>{array[left]} with <{right}>{array[right]}")
         array[left], array[right] = array[right], array[left]
