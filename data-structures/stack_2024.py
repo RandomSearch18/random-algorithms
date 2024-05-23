@@ -36,13 +36,14 @@ class Stack(Generic[T]):
 
 
 def is_palindrome(word: str) -> bool:
+    normalized_word = word.lower()
     characters = Stack[str]()
-    for character in word.lower():
+    for character in normalized_word:
         characters.push(character)
-    reversed_characters = Stack[str]()
+    reversed_word = ""
     while not characters.isEmpty():
-        reversed_characters.push(characters.pop())
-    return characters == reversed_characters
+        reversed_word += characters.pop()
+    return normalized_word == reversed_word
 
 
 def is_palindrome_demo(word: str):
